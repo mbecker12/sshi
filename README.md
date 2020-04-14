@@ -33,7 +33,7 @@ activate changes
 source .bashrc
 ```
 
-##### Usage
+## Usage
 ```
 python ssh_interface.py
 ```
