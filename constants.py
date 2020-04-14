@@ -7,7 +7,6 @@ key_dict = {'backspace': '0xff08',
        'left': '0xff51',
        'up': '0xff52',
        'down': '0xff54',
-       'space': '0xff80'
+       'space': '0xff80',
+       'dot': '0x002e'
        }
-
-       #TODO figure out dot

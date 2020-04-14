@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 
 def on_press(key):
     logger.debug(f'{key} pressed')
+    logger.debug(f'type(key): {type(key)}')
     if type(key) == Key:
         if key.name == 'alt_r' or key.name == 'f4':
             s.logout()
@@ -34,6 +35,9 @@ def on_press(key):
 
     else:
         send = key
+        logger.debug(key.__dict__)
+        if key.char == '.':
+            send = key_dict.get('dot', ERR_CODE)
 
     if send != ERR_CODE:
         s.sendline(f'xdotool key {send}')
