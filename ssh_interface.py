@@ -7,7 +7,7 @@ marvinbecker[at]mail.de
 
 broadcast the most important keys to xdotool on a raspberry pi
 
-Python 3.8.2
+Python 3.8.2 and 3.7.6
 Library version:
 pip install pexpect
 pip install pynput
