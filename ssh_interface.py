@@ -16,21 +16,10 @@ pip install pynput
 import argparse
 from pexpect import pxssh
 from pynput.keyboard import Key, Listener
+from constants import key_dict, ERR_CODE
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
-ERR_CODE = 404
-
-dic = {'backspace': '0xff08',
-       'enter': '0xff0d',
-       'esc': '0xff1b',
-       'right': '0xff53',
-       'left': '0xff51',
-       'up': '0xff52',
-       'down': '0xff54',
-       'space': '0xff80'
-       }
 
 
 def on_press(key):
@@ -41,7 +30,7 @@ def on_press(key):
             logger.info("Stopping session")
             quit()
         else:
-            send = dic.get(key.name, ERR_CODE)
+            send = key_dict.get(key.name, ERR_CODE)
 
     else:
         send = key
@@ -50,10 +39,6 @@ def on_press(key):
         s.sendline(f'xdotool key {send}')
     else:
         logger.warning(f'{key} pressed but not supported')
-
-
-s = pxssh.pxssh()
-
 
 def create_argparser():
     parser = argparse.ArgumentParser(description='Connect to a Raspberry Pi and type stuff.\nPress F4 key to quit.')
@@ -65,26 +50,25 @@ def create_argparser():
     args = vars(parser.parse_args())
     return args
 
+if __name__ == "__main__":
+    s = pxssh.pxssh()
 
-args = create_argparser()
-port = args['port']
-name = args['name']
-pw = args['pw']
-logger.debug(args)
+    args = create_argparser()
+    port = args['port']
+    name = args['name']
+    pw = args['pw']
+    logger.debug(args)
 
-logger.info("Setting up SSH connection ...")
-if not s.login(f'192.168.1.{port}', f'{name}', f'{pw}', sync_multiplier=5, auto_prompt_reset=False):
-    logger.error("SSH session failed on login.")
-    logger.warning(str(s))
-else:
-    logger.info("SSH session login successful")
-    # s.sendline ('xdotool mousemove 500 500')
-    # s.prompt()         # match the prompt
-    # print(s.before)    # print everything before the prompt.
+    logger.info("Setting up SSH connection ...")
+    if not s.login(f'192.168.1.{port}', f'{name}', f'{pw}', sync_multiplier=5, auto_prompt_reset=False):
+        logger.error("SSH session failed on login.")
+        logger.warning(str(s))
+    else:
+        logger.info("SSH session login successful")
 
-    logger.info("Lets do this!!")
+        logger.info("Lets do this!!")
 
-    # Collect events until released
-    with Listener(
-            on_press=on_press) as listener:
-        listener.join()
+        # Collect events until released
+        with Listener(
+                on_press=on_press) as listener:
+            listener.join()
