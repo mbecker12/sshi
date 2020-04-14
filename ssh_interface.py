@@ -18,7 +18,7 @@ from pexpect import pxssh
 from pynput.keyboard import Key, Listener
 from constants import key_dict, ERR_CODE
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -35,7 +35,6 @@ def on_press(key):
 
     else:
         send = key
-        logger.debug(key.__dict__)
         if key.char == '.':
             send = key_dict.get('dot', ERR_CODE)
 
