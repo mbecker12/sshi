@@ -28,5 +28,21 @@ add line
 ```
 export DISPLAY=:0
 ```
+activate changes
+```
+source .bashrc
+```
 
+##### Usage
+```
+python ssh_interface.py
+```
+Options:
+```
+  -h, --help            show this help message and exit
+  -p PORT, --port PORT  Set port specification. Will be parsed as
+                        192.168.1.<port>
+  -n NAME, --name NAME  Username of the Raspberry Pi
+  -w PW, --pw PW        Password of the Raspberry Pi User
+```
 
