@@ -17,7 +17,7 @@ pip install pexpect
 pip install pynput
 ```
 
-###### Gues
+###### Guest
 login with ssh
 
 ```
