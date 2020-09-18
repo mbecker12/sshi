@@ -17,6 +17,12 @@ pip install pexpect
 pip install pynput
 ```
 
+... or use
+
+```
+pip install -r requirements.txt
+```
+
 ###### Guest
 login with ssh
 
@@ -32,6 +38,9 @@ activate changes
 ```
 source .bashrc
 ```
+
+Note: For zsh, replace .bashrc with .zshrc
+
 
 ## Usage
 ```
