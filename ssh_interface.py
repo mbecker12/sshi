@@ -47,6 +47,7 @@ def create_argparser():
     parser = argparse.ArgumentParser(description='Connect to a Raspberry Pi and type stuff.\nPress F4 key to quit.')
 
     parser.add_argument('-p', '--port', required=False, default='4', help='Set port specification. Will be parsed as 192.168.1.<port>')
+    parser.add_argument('-P', '--port1', required=False, default='1', help='Set port specification. Will be parsed as 192.168.<port1>.<port>')
     parser.add_argument('-n', '--name', required=False, default='pi', help='Username of the Raspberry Pi')
     parser.add_argument('-w', '--pw', required=False, default='Passwort', help='Password of the Raspberry Pi User')
 
@@ -58,12 +59,13 @@ if __name__ == "__main__":
 
     args = create_argparser()
     port = args['port']
+    port1 = args['port1']
     name = args['name']
     pw = args['pw']
     logger.debug(args)
 
     logger.info("Setting up SSH connection ...")
-    if not s.login(f'192.168.1.{port}', f'{name}', f'{pw}', sync_multiplier=5, auto_prompt_reset=False):
+    if not s.login(f'192.168.{port1}.{port}', f'{name}', f'{pw}', sync_multiplier=5, auto_prompt_reset=False):
         logger.error("SSH session failed on login.")
         logger.warning(str(s))
     else:
